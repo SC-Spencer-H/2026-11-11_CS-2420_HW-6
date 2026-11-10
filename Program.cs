@@ -163,12 +163,12 @@ Start [52] [ ]
 5, 40, [60,90,35], [52,30,75,18,40]
 Full BFS result: [52,30,75,18,40,60,90,35,66]
 ---- Question 2: DFS by hand ----
-Preorder:
-Inorder:
-Postorder:
+Preorder: [52,30,18,40,35,75,60,66,90]
+Inorder: [18,30,35,40,52,60,66,75,90]
+Postorder: [18,35,40,30,66,60,90,75,52]
 ---- Question 3: Pick the traversal ----
-a)
-b)
-c)
-d)
+a) Inorder
+b) BFS
+c) Postorder
+d) Preorder
 */
