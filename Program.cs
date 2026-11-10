@@ -125,14 +125,38 @@ public class BinarySearchTree
     // Use a queue, the same way BFS does. An empty tree has 0 leaves.
     public int CountLeaves()
     {
-        return 0;
+        int leaves = 0;
+
+        if (root == null)
+            return leaves;
+
+        var queue = new Queue<Node>();
+        queue.Enqueue(root);
+        while (queue.Count > 0)
+        {
+            Node currentNode = queue.Dequeue();
+            if (currentNode.Left == null && currentNode.Right == null)
+                leaves++;
+            if (currentNode.Left != null) queue.Enqueue(currentNode.Left);
+            if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
+        }
+
+        return leaves;
     }
 
     // TODO: return the total of all values in the tree. An empty tree returns 0.
     // Use DFS: a Traverse local function, like DFSInOrder.
     public int Sum()
     {
-        return 0;
+        int sum = 0;
+        void Traverse(Node current)
+        {
+            if (current.Left != null) Traverse(current.Left);
+            sum += current.Value;
+            if (current.Right != null) Traverse(current.Right);
+        }
+        if (root != null) Traverse(root);
+        return sum;
     }
 
     // TODO: return the height of the tree. Empty tree = -1. One node = 0.
@@ -140,7 +164,18 @@ public class BinarySearchTree
     // Hint: write a local function int H(Node? n) that returns -1 when n is null.
     public int Height()
     {
-        return 0;
+        int H(Node? n)
+        {
+            if (n == null)
+                return -1;
+
+            int leftHeight = H(n.Left);
+            int rightHeight = H(n.Right);
+
+            return 1 + int.Max(leftHeight, rightHeight);
+        }
+        
+        return H(root);
     }
 
     // TODO: return true if the tree follows the BST rule, false if not.
@@ -148,7 +183,13 @@ public class BinarySearchTree
     // is bigger than the number before it.
     public bool IsValidBST()
     {
-        return false;
+        List<int> dfsInOrder = DFSInOrder();
+        for(int i = 1; i< dfsInOrder.Count; i++)
+        {
+            if (dfsInOrder[i-1] > dfsInOrder[i])
+                return false;
+        }
+        return true;
     }
 }
 
